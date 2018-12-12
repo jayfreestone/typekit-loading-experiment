@@ -14,11 +14,11 @@ html {
     color: #222;
     font-size: 1em;
     line-height: 1.4;
-    font-family: input-sans, sans-serif;
+    font-family: sans-serif;
 }
 
-.wf-cached.wf-loading {
-  color: transparent !important;
+.fonts-loaded {
+  font-family: input-sans, sans-serif;
 }
 
 /*

@@ -8,27 +8,31 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+  <link rel="preload" href="https://use.typekit.net/tik6fra.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preconnect" href="https://p.typekit.net" crossorigin>
+
   <link rel="manifest" href="site.webmanifest">
   <link rel="apple-touch-icon" href="icon.png">
-  <!-- Place favicon.ico in the root directory -->
-
   <script>
-    if (Boolean(sessionStorage.getItem('fonts_cached')) ) {
-      document.documentElement.classList.add('wf-cached');
+    // Optimization for Repeat Views
+    if (sessionStorage.fontsLoadedFoutWithClassPolyfill ) {
+      document.documentElement.className += " fonts-loaded";
     }
+  </script>
+  <!-- Place favicon.ico in the root directory -->
+  <script src="js/vendor/fontfaceobserver.standalone.js"></script>
+  <script>
+    (function() {
+      const fontA = new FontFaceObserver('input-sans');
 
-    (function(d) {
-      var config = {
-        kitId: 'tik6fra',
-        scriptTimeout: 20000,
-        async: true,
-        active: function() {
-          console.log('fired is active');
-          sessionStorage.setItem('fonts_cached', 'true');
-        },
-      },
-      h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
-    })(document);
+      Promise.all([
+        fontA.load(null, 10000),
+      ]).then(function () {
+        document.documentElement.className += " fonts-loaded";
+        // Optimization for Repeat Views
+        sessionStorage.fontsLoadedFoutWithClassPolyfill = true;
+      });
+    })();
   </script>
 
   <link rel="stylesheet" href="css/normalize.css">
